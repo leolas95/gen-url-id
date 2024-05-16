@@ -1,0 +1,7 @@
+.idea/*
+.DS_STORE
+**/bootstrap
+**/*.zip
+
+artifacts/
+deployment/
