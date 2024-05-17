@@ -7,6 +7,7 @@ import (
 	"slices"
 )
 
+// We want a hash of 7 chars long, and for that we need a 12 digits numberm
 const (
 	Low      = 100000000000
 	High     = 999999999999

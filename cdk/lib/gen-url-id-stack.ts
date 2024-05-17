@@ -1,16 +1,21 @@
 import * as cdk from 'aws-cdk-lib';
 import { Construct } from 'constructs';
-// import * as sqs from 'aws-cdk-lib/aws-sqs';
+import * as lambda from 'aws-cdk-lib/aws-lambda'
+import * as apigw from 'aws-cdk-lib/aws-apigateway'
 
 export class GenUrlIdStack extends cdk.Stack {
   constructor(scope: Construct, id: string, props?: cdk.StackProps) {
     super(scope, id, props);
 
-    // The code that defines your stack goes here
+    const genUrlIdLambda = new lambda.Function(this, 'GenUrlIdLambda', {
+      runtime: lambda.Runtime.PROVIDED_AL2023,
+      code: lambda.Code.fromAsset('../deployment/deployment.zip'),
+      handler: 'bootstrap',
+      architecture: lambda.Architecture.ARM_64,
+    });
 
-    // example resource
-    // const queue = new sqs.Queue(this, 'CdkQueue', {
-    //   visibilityTimeout: cdk.Duration.seconds(300)
-    // });
+    const api = new apigw.LambdaRestApi(this, 'GenUrlApi', {
+      handler: genUrlIdLambda,
+    });
   }
 }
