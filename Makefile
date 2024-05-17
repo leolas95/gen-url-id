@@ -6,6 +6,7 @@ GO_TAGS = lambda.norpc
 DEPLOYMENT_HANDLER = bootstrap
 DEPLOYMENT_PACKAGE = $(DEPLOYMENT_DIR).zip
 SRC_DIR = src
+COVERAGE_FILE=coverage.out
 
 # create final .zip
 z: $(ARTIFACTS_DIR)/$(DEPLOYMENT_HANDLER)
@@ -27,6 +28,13 @@ $(ARTIFACTS_DIR)/$(DEPLOYMENT_HANDLER): $(shell find $(SRC_DIR) -type f -name *.
 	@echo "=== moving binaries to artifacts ==="
 	mv $(DEPLOYMENT_HANDLER) $(ARTIFACTS_DIR)/
 	@echo "\n"
+
+test:
+	go test ./$(SRC_DIR) -failfast -v -coverprofile=$(COVERAGE_FILE) -covermode=atomic
+
+.PHONY: cov
+cov:
+	go tool cover -func=$(COVERAGE_FILE)
 
 .PHONY: deploy
 deploy: $(DEPLOYMENT_DIR)/$(DEPLOYMENT_PACKAGE)
