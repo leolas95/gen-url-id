@@ -1,22 +1,18 @@
-# Short hash
+# Generate short hash
 
-This a URL shortener service: given a URL, it returns a shorter version
-of it.
+This service generates a short hash string used by the (mini-url)[https://github.com/leolas95/mini-url]  service
+to generate short URLs
 
-When the short URL is used, you get redirected to the original location.
+The short hash is a base 62 (i.e: alphanumerical) string of length 7. Only one change is needed to increase/decrease
+the hash length
 
 ## Endpoints
 
 ### Shorten URL
 ```http request
 POST /urls
+
+url={long_url}
 ```
 
-Returns the short version of the URL
-
-### Get original URl
-```http request
-GET /urls/{short_url}
-```
-
-Redirects you to the original URL. Returns an HTTP 307 TEMPORARY REDIRECT status code
+Returns the hash for the given URL
