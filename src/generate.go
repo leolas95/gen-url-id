@@ -7,7 +7,7 @@ import (
 	"slices"
 )
 
-// We want a hash of 7 chars long, and for that we need a 12 digits numberm
+// We want a base-62 hash of 7 chars long, so we need a 12 digits number
 const (
 	Low      = 100000000000
 	High     = 999999999999
@@ -27,7 +27,6 @@ func IntToBase62(n int64) string {
 	for n > 0 {
 		rem := n % 62
 		n /= 62
-
 		chars = append(chars, alphabet[rem])
 	}
 

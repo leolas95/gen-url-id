@@ -29,7 +29,7 @@ $(ARTIFACTS_DIR)/$(DEPLOYMENT_HANDLER): $(shell find $(SRC_DIR) -type f -name *.
 	mv $(DEPLOYMENT_HANDLER) $(ARTIFACTS_DIR)/
 	@echo "\n"
 
-test:
+tests:
 	go test ./$(SRC_DIR) -failfast -v -coverprofile=$(COVERAGE_FILE) -covermode=atomic
 
 .PHONY: cov
